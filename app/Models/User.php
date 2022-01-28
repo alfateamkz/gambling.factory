@@ -12,6 +12,26 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public $name;
+    public $lastname;
+    public $avatarPath;
+
+    public $city;
+    public $country;
+    public $gender;
+    public $login;
+
+
+    public $phone;
+    public $email;
+
+    public $skype;
+    public $vk;
+    public $inst;
+    public $telegram;
+    public $whatsapp;
+
+    public $referId;
     /**
      * The attributes that are mass assignable.
      *

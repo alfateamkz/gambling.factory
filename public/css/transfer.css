@@ -1,0 +1,149 @@
+.operation-wrapper {
+  width: 100%;
+  max-width: 555px;
+  margin-top: 25px;
+}
+
+.operation__title {
+  margin-bottom: 20px;
+}
+
+.transfer-to {
+  margin-bottom: 20px;
+}
+
+.transfer__info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.profile {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.profile__image {
+  max-width: 75px;
+  min-width: 75px;
+  min-height: 75px;
+  max-height: 75px;
+  background: url(../img/dashboard/avatar.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-right: 20px;
+}
+
+
+
+.profile__name {
+  font-family: "Montserrat-bold";
+  font-size: 16px;
+}
+
+.profile__username {
+  font-size: 14px;
+  color: #505155;
+}
+
+.transfer__profile_socials-inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.transfer__profile_social {
+  position: relative;
+  margin-right: 10px;
+  padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: 1px solid #f1f3f8;
+  border-radius: 50%;
+  background-color: #fff;
+  -webkit-transition: border 0.3s ease;
+  transition: border 0.3s ease;
+}
+
+.transfer__profile_social:hover {
+  border-color: #ffb971;
+}
+
+.transfer__profile_social img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.transfer-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end;
+}
+
+.transfer-form__label {
+  width: 40%;
+  max-width: 170px;
+  margin-right: 20px;
+}
+
+.transfer-form__label span {
+  display: block;
+}
+
+.transfer-form__label.miny {
+  max-width: 120px;
+}
+
+.transfer-input {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 20px;
+  background-color: #f0f2f8;
+}
+
+.no-edit {
+  background-color: #fff;
+  border-color: #f1f3f8;
+}
+
+.no-edit:focus {
+  border-color: #f1f3f8;
+}
+
+
+
+
+
+.webp .profile__image {
+  background: url(../img/dashboard/avatar.webp);
+}
