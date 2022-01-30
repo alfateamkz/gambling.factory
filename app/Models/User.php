@@ -12,36 +12,53 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public $name;
-    public $lastname;
-    public $avatarPath;
+    protected $name;
+    protected $lastname;
+    protected $avatarPath;
 
-    public $city;
-    public $country;
-    public $gender;
-    public $login;
+    protected $city;
+    protected $country;
+    protected $gender;
+    protected $login;
 
 
-    public $phone;
-    public $email;
+    protected $phone;
+    protected $email;
 
-    public $skype;
-    public $vk;
-    public $inst;
-    public $telegram;
-    public $whatsapp;
+    protected $skype;
+    protected $vk;
+    protected $inst;
+    protected $telegram;
+    protected $whatsapp;
 
-    public $referId;
+    protected $referId;
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = [
+    protected  $fillable  = [
+        'lastname',
+        'login',
         'name',
         'email',
         'password',
+
+        'avatarPath',
+
+        'country',
+        'city',
+        'gender',
+
+        'phone',
+
+        'skype',
+        'vk',
+        'inst',
+        'telegram',
+        'whatsapp',
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.

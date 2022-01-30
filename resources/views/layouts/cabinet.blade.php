@@ -17,10 +17,13 @@
         <picture><source srcset="img/logo.webp" type="image/webp"><img src="img/logo.png" alt="logo"></picture>
     </a>
     <div class="sidebar__profile">
-        <picture><source srcset="img/dashboard/user-anna.webp" type="image/webp"><img src="img/dashboard/user-anna.png" alt="user" class="sidebar__profile-image"></picture>
+        @if(strlen(auth()->user()->avatarPath) > 0)
+            <img src="{{auth()->user()->avatarPath}}" width="50px" height="50px" alt="user"
+                 class="sidebar__profile-image"/>
+        @endif
         <div class="sidebar__profile-data">
-            <span class="sidebar__profile-name">Anna Smitt</span>
-            <span class="sidebar__profile-username">username</span>
+            <span class="sidebar__profile-name">{{auth()->user()->name}} {{auth()->user()->lastname}}</span>
+            <span class="sidebar__profile-username">{{auth()->user()->login}}</span>
         </div>
     </div>
     <div class="sidebar__controls">
