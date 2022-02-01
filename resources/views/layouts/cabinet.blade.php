@@ -46,10 +46,10 @@
     <div class="sidebar__balance-block">
         <span>Мой баланс</span>
         <div class="sidebar__balance-item">
-            567 USD
+            {{auth()->user()->wallet()->usdBalance}} USD
         </div>
         <div class="sidebar__balance-item">
-            1000 <span>GF</span>
+            {{auth()->user()->wallet()->gfBalance}} <span>GF</span>
         </div>
     </div>
     <nav class="nav">

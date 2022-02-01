@@ -78,4 +78,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function Wallet(){
+         return UserWallet::where('user_id',$this->id)->first();
+    }
+    public function Transactions(){
+        return UserTransactions::where('user_id',$this->id)->get();
+    }
 }

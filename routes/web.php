@@ -24,10 +24,12 @@ Route::group(['middleware' => 'App\Http\Middleware\Authenticate'], function () {
     Route::get('/support', 'App\Http\Controllers\MainController@support')->name('support');
     Route::get('/team', 'App\Http\Controllers\MainController@team')->name('team');
     Route::get('/ticket', 'App\Http\Controllers\MainController@ticket')->name('ticket');
-    Route::get('/transfer', 'App\Http\Controllers\MainController@transfer')->name('transfer');
+    Route::post('/transfer', 'App\Http\Controllers\MainController@transfer')->name('transfer');
     Route::get('/upbalance', 'App\Http\Controllers\MainController@upbalance')->name('upbalance');
+    Route::post('/upbalance', 'App\Http\Controllers\MainController@upbalance')->name('upbalance');
     Route::get('/updates', 'App\Http\Controllers\MainController@updates')->name('updates');
     Route::get('/withdraw', 'App\Http\Controllers\MainController@withdraw')->name('withdraw');
+    Route::post('/withdraw', 'App\Http\Controllers\MainController@withdraw')->name('withdraw');
 });
 
 

@@ -26,10 +26,15 @@ class MainController extends BaseController
         return view('index');
     }
     public function signup(\Illuminate\Http\Request $request){
-        User::create([
+       $user =  User::create([
             'login' => $request['login'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
+        ]);
+        UserWallet::create([
+             'usdBalance' => 0,
+             'gfBalance' => 0,
+             'user_id' => $user->id
         ]);
         return redirect('/');
     }
@@ -86,7 +91,10 @@ class MainController extends BaseController
        return view('exchange');
    }
    public function finance(){
-        return view('finance');
+        return view('finance')->with(
+            [
+                'transactions' =>auth()->user()->Transactions()
+            ]);
     }
     public function main(){
         return view('main')->with(['updates'=>UpdateModel::all()]);
@@ -106,16 +114,36 @@ class MainController extends BaseController
     public function ticket(){
         return view('ticket');
     }
-    public function transfer(){
-        return view('transfer');
+    public function transfer(\Illuminate\Http\Request $request){
+
+        if(!isset($request['username'])|| strlen($request['username'])==0)
+            return 'У вас нет доступа к этой странице';
+
+        $user = User::where('login',$request['username'])->first();
+        if(!isset($user))
+            return 'Пользователя с таким юзернеймом не существует';
+
+        return view('transfer')->with(
+                [
+                    'receiver' => $user,
+                    'currency'=>$request['currency']
+                ]);
     }
-    public function upbalance(){
-        return view('upbalance');
+    public function upbalance(\Illuminate\Http\Request $request){
+        return view('upbalance')->with(
+            [
+                'currency' => $request['currency'],
+                'sum' =>$request['sum']
+            ]);;
     }
     public function updates(){
         return view('updates')->with(['updates'=>UpdateModel::all()]);
     }
-    public function withdraw(){
-        return view('withdraw');
+    public function withdraw(\Illuminate\Http\Request $request){
+        return view('withdraw')->with(
+            [
+                'currency' => $request['currency'],
+                'sum' =>$request['sum']
+            ]);;
     }
 }
