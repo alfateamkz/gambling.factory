@@ -85,4 +85,7 @@ class User extends Authenticatable
     public function Transactions(){
         return UserTransactions::where('user_id',$this->id)->get();
     }
+    public function Tickets(){
+        return Ticket::where('user_id',$this->id)->get();
+    }
 }

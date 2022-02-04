@@ -4,17 +4,17 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="css/components/reset.css">
-	<link rel="stylesheet" href="css/components/fonts.css">
-	<link rel="stylesheet" href="css/dashboard.min.css">
-	<link rel="stylesheet" href="css/updates.min.css">
-	<link rel="stylesheet" href="css/main.min.css">
+	<link rel="stylesheet" href="{{ asset('css/components/reset.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/components/fonts.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/dashboard.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/updates.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/main.min.css') }}">
 	<title>@yield('title')</title>
 </head>
 <body>
 <aside class="sidebar">
     <a href="{{route('index')}}" class="logo">
-        <picture><source srcset="img/logo.webp" type="image/webp"><img src="img/logo.png" alt="logo"></picture>
+        <picture><source srcset="{{ asset('img/logo.webp') }}" type="image/webp"><img src="{{ asset('img/logo.png') }}" alt="logo"></picture>
     </a>
     <div class="sidebar__profile">
         @if(strlen(auth()->user()->avatarPath) > 0)
@@ -44,7 +44,7 @@
         </a>
     </div>
     <div class="sidebar__balance-block">
-        <span>Мой баланс</span>
+        <span>@lang('common/cabinet.my_balance')</span>
         <div class="sidebar__balance-item">
             {{auth()->user()->wallet()->usdBalance}} USD
         </div>
@@ -56,9 +56,9 @@
         <ul class="nav__list">
             <li class="nav__list-item">
                 <a href="{{route('main')}}">
-                    <picture><source srcset="img/dashboard/main-icon.webp" type="image/webp"><img src="img/dashboard/main-icon.png" alt="main" class="nav__list-item_icon"></picture>
-                    <picture><source srcset="img/dashboard/main-icon-wh.webp" type="image/webp"><img src="img/dashboard/main-icon-wh.png" alt="main" class="nav__list-item_icon white-icon"></picture>
-                    <span>Главная</span>
+                    <picture><source srcset="{{ asset('img/dashboard/main-icon.webp') }}" type="image/webp"><img src="{{ asset('img/dashboard/main-icon.png') }}" alt="main" class="nav__list-item_icon"></picture>
+                    <picture><source srcset="{{ asset('img/dashboard/main-icon-wh.webp') }}" type="image/webp"><img src="{{ asset('img/dashboard/main-icon-wh.png') }}" alt="main" class="nav__list-item_icon white-icon"></picture>
+                    <span>@lang('common/cabinet.dashboard')</span>
                     <svg class="mark-right">
                         <use xlink:href="img/icons/icons.svg#mark-down"></use>
                     </svg>
@@ -66,9 +66,9 @@
             </li>
             <li class="nav__list-item">
                 <a href="{{route('exchange')}}">
-                    <picture><source srcset="img/dashboard/graph-icon.webp" type="image/webp"><img src="img/dashboard/graph-icon.png" alt="graph" class="nav__list-item_icon"></picture>
-                    <picture><source srcset="img/dashboard/graph-icon-wh.webp" type="image/webp"><img src="img/dashboard/graph-icon-wh.png" alt="graph" class="nav__list-item_icon white-icon"></picture>
-                    <span>Токен биржа</span>
+                    <picture><source srcset="{{ asset('img/dashboard/graph-icon.webp') }}" type="image/webp"><img src="{{ asset('img/dashboard/graph-icon.png') }}" alt="graph" class="nav__list-item_icon"></picture>
+                    <picture><source srcset="{{ asset('img/dashboard/graph-icon-wh.webp') }}" type="image/webp"><img src="{{ asset('img/dashboard/graph-icon-wh.png') }}" alt="graph" class="nav__list-item_icon white-icon"></picture>
+                    <span>@lang('common/cabinet.exchange')</span>
                     <svg class="mark-right">
                         <use xlink:href="img/icons/icons.svg#mark-down"></use>
                     </svg>
@@ -76,9 +76,9 @@
             </li>
             <li class="nav__list-item">
                 <a href="{{route('finance')}}">
-                    <picture><source srcset="img/dashboard/wallet-icon.webp" type="image/webp"><img src="img/dashboard/wallet-icon.png" alt="wallet" class="nav__list-item_icon"></picture>
-                    <picture><source srcset="img/dashboard/wallet-icon-wh.webp" type="image/webp"><img src="img/dashboard/wallet-icon-wh.png" alt="wallet" class="nav__list-item_icon white-icon"></picture>
-                    <span>Финансы</span>
+                    <picture><source srcset="{{ asset('img/dashboard/wallet-icon.webp') }}" type="image/webp"><img src="{{ asset('img/dashboard/wallet-icon.png') }}" alt="wallet" class="nav__list-item_icon"></picture>
+                    <picture><source srcset="{{ asset('img/dashboard/wallet-icon-wh.webp') }}" type="image/webp"><img src="{{ asset('img/dashboard/wallet-icon-wh.png') }}" alt="wallet" class="nav__list-item_icon white-icon"></picture>
+                    <span>@lang('common/cabinet.finances')</span>
                     <svg class="mark-right">
                         <use xlink:href="img/icons/icons.svg#mark-down"></use>
                     </svg>
@@ -86,9 +86,9 @@
             </li>
             <li class="nav__list-item">
                 <a href="{{route('team')}}">
-                    <picture><source srcset="img/dashboard/team-icon.webp" type="image/webp"><img src="img/dashboard/team-icon.png" alt="team" class="nav__list-item_icon"></picture>
-                    <picture><source srcset="img/dashboard/team-icon-wh.webp" type="image/webp"><img src="img/dashboard/team-icon-wh.png" alt="team" class="nav__list-item_icon white-icon"></picture>
-                    <span>Команда</span>
+                    <picture><source srcset="{{ asset('img/dashboard/team-icon.webp') }}" type="image/webp"><img src="{{ asset('img/dashboard/team-icon.png') }}" alt="team" class="nav__list-item_icon"></picture>
+                    <picture><source srcset="{{ asset('img/dashboard/team-icon-wh.webp') }}" type="image/webp"><img src="{{ asset('img/dashboard/team-icon-wh.png') }}" alt="team" class="nav__list-item_icon white-icon"></picture>
+                    <span>@lang('common/cabinet.team')</span>
                     <svg class="mark-right">
                         <use xlink:href="img/icons/icons.svg#mark-down"></use>
                     </svg>
@@ -96,18 +96,18 @@
             </li>
             <li class="nav__list-item">
                 <a href="{{route('platforms')}}">
-                    <picture><source srcset="img/dashboard/cards-icon.webp" type="image/webp"><img src="img/dashboard/cards-icon.png" alt="cards" class="nav__list-item_icon"></picture>
-                    <picture><source srcset="img/dashboard/cards-icon-wh.webp" type="image/webp"><img src="img/dashboard/cards-icon-wh.png" alt="cards" class="nav__list-item_icon white-icon"></picture>
-                    <span>Площадки</span>
+                    <picture><source srcset="{{ asset('img/dashboard/cards-icon.webp') }}" type="image/webp"><img src="{{ asset('img/dashboard/cards-icon.png') }}" alt="cards" class="nav__list-item_icon"></picture>
+                    <picture><source srcset="{{ asset('img/dashboard/cards-icon-wh.webp') }}" type="image/webp"><img src="{{ asset('img/dashboard/cards-icon-wh.png') }}" alt="cards" class="nav__list-item_icon white-icon"></picture>
+                    <span>@lang('common/cabinet.platforms')</span>
                     <svg class="mark-right">
                         <use xlink:href="img/icons/icons.svg#mark-down"></use>
                     </svg>
                 </a>
             </li><li class="nav__list-item">
                 <a href="{{route('updates')}}">
-                    <picture><source srcset="img/dashboard/update-icon.webp" type="image/webp"><img src="img/dashboard/update-icon.png" alt="update" class="nav__list-item_icon"></picture>
-                    <picture><source srcset="img/dashboard/update-icon-wh.webp" type="image/webp"><img src="img/dashboard/update-icon-wh.png" alt="update" class="nav__list-item_icon white-icon"></picture>
-                    <span>Обновления</span>
+                    <picture><source srcset="{{ asset('img/dashboard/update-icon.webp') }}" type="image/webp"><img src="{{ asset('img/dashboard/update-icon.png') }}" alt="update" class="nav__list-item_icon"></picture>
+                    <picture><source srcset="{{ asset('img/dashboard/update-icon-wh.webp') }}" type="image/webp"><img src="{{ asset('img/dashboard/update-icon-wh.png') }}" alt="update" class="nav__list-item_icon white-icon"></picture>
+                    <span>@lang('common/cabinet.updates')</span>
                     <svg class="mark-right">
                         <use xlink:href="img/icons/icons.svg#mark-down"></use>
                     </svg>

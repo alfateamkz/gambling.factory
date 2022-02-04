@@ -23,7 +23,7 @@ Route::group(['middleware' => 'App\Http\Middleware\Authenticate'], function () {
     Route::get('/settings', 'App\Http\Controllers\MainController@settings')->name('settings');
     Route::get('/support', 'App\Http\Controllers\MainController@support')->name('support');
     Route::get('/team', 'App\Http\Controllers\MainController@team')->name('team');
-    Route::get('/ticket', 'App\Http\Controllers\MainController@ticket')->name('ticket');
+    Route::get('/ticket/{id}', 'App\Http\Controllers\MainController@ticket')->name('ticket');
     Route::post('/transfer', 'App\Http\Controllers\MainController@transfer')->name('transfer');
     Route::get('/upbalance', 'App\Http\Controllers\MainController@upbalance')->name('upbalance');
     Route::post('/upbalance', 'App\Http\Controllers\MainController@upbalance')->name('upbalance');
@@ -38,3 +38,8 @@ Route::post('/signup','App\Http\Controllers\MainController@signup')->name('signu
 Route::post('/login','App\Http\Controllers\MainController@login')->name('login');
 Route::post('/changePassword','App\Http\Controllers\MainController@changePassword')->name('changePassword');
 Route::post('/editUserInfo','App\Http\Controllers\MainController@editUserInfo')->name('editUserInfo');
+
+Route::post('/supportCreateTicket','App\Http\Controllers\MainController@supportCreateTicket')
+    ->name('supportCreateTicket');
+Route::post('/ticketCreateMessage','App\Http\Controllers\MainController@ticketCreateMessage')
+    ->name('ticketCreateMessage');

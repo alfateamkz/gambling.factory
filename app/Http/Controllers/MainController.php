@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Platform;
+use App\Models\Ticket;
+use App\Models\TicketMessage;
 use App\Models\TradeModel;
 use App\Models\UpdateModel;
 use App\Models\User;
@@ -10,6 +12,7 @@ use App\Models\UserModel;
 use App\Models\UserWallet;
 use http\Env\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Ramsey\Uuid\Guid\Guid;
 use Validator;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -105,15 +108,11 @@ class MainController extends BaseController
     public function settings(){
         return view('settings');
     }
-    public function support(){
-        return view('support');
-    }
+
     public function team(){
         return view('team');
     }
-    public function ticket(){
-        return view('ticket');
-    }
+
     public function transfer(\Illuminate\Http\Request $request){
 
         if(!isset($request['username'])|| strlen($request['username'])==0)
@@ -144,6 +143,86 @@ class MainController extends BaseController
             [
                 'currency' => $request['currency'],
                 'sum' =>$request['sum']
-            ]);;
+            ]);
+    }
+
+    public function support(){
+        return view('support')->with(['tickets'=>auth()->user()->Tickets()]);
+    }
+    public function supportCreateTicket(\Illuminate\Http\Request $request){
+
+        $ticket =  Ticket::create([
+            'header' => $request['ticket-header'],
+            'description' => $request['ticket-message'],
+            'user_id' => auth()->user()->id,
+        ]);
+        $attachment1path = "";
+        $attachment2path = "";
+
+        if ($request->hasFile('attachment-1')) {
+            $file1 = $request->file('attachment-1');
+            $destinationPath = public_path('uploads/attachments/');
+            $fileName = Guid::uuid4() .$file1->getClientOriginalName();
+            $request->file('attachment-1')->move($destinationPath, $fileName);
+            $attachment1path = 'uploads/attachments/' . $fileName;
+        }
+        if ($request->hasFile('attachment-2')) {
+            $file2 = $request->file('attachment-1');
+            $destinationPath = public_path('uploads/attachments/');
+            $fileName = Guid::uuid4() . $file2->getClientOriginalName();
+            $request->file('attachment-2')->move($destinationPath, $fileName);
+            $attachment2path = 'uploads/attachments/' . $fileName;
+        }
+        $msg =  TicketMessage::create([
+            'ticket_id' => $ticket->id,
+            'fromSupport' => false,
+            'header' => $request['ticket-header'],
+            'description' => $request['ticket-message'],
+            'attachment1path' => $attachment1path,
+            'attachment2path' => $attachment2path,
+        ]);
+
+
+        return view('support')->with(['tickets'=>auth()->user()->Tickets()]);
+    }
+
+    public function ticket($id){
+
+        $ticket = Ticket::where('id',$id)->first();
+        if($ticket->user_id != auth()->user()->id)
+            return '403';
+
+        return view('ticket')->with(['ticket' => $ticket]);
+    }
+
+    public function ticketCreateMessage(\Illuminate\Http\Request $request){
+        $ticket =  Ticket::where('id',$request['ticket_id'])->first();
+        $attachment1path = "";
+        $attachment2path = "";
+
+        if ($request->hasFile('attachment-1')) {
+            $file1 = $request->file('attachment-1');
+            $destinationPath = public_path('uploads/attachments/');
+            $fileName = Guid::uuid4() .$file1->getClientOriginalName();
+            $request->file('attachment-1')->move($destinationPath, $fileName);
+            $attachment1path = 'uploads/attachments/' . $fileName;
+        }
+        if ($request->hasFile('attachment-2')) {
+            $file2 = $request->file('attachment-1');
+            $destinationPath = public_path('uploads/attachments/');
+            $fileName = Guid::uuid4() . $file2->getClientOriginalName();
+            $request->file('attachment-2')->move($destinationPath, $fileName);
+            $attachment2path = 'uploads/attachments/' . $fileName;
+        }
+        $msg =  TicketMessage::create([
+            'ticket_id' => $ticket->id,
+            'fromSupport' => false,
+            'header' => $request['ticket-header'],
+            'description' => $request['ticket-message'],
+            'attachment1path' => $attachment1path,
+            'attachment2path' => $attachment2path,
+        ]);
+
+        return redirect(route('ticket',['id'=>$request['ticket_id']]));
     }
 }
