@@ -88,4 +88,7 @@ class User extends Authenticatable
     public function Tickets(){
         return Ticket::where('user_id',$this->id)->get();
     }
+    public function Trades(){
+        return TradeModel::where('user_id',$this->id)->latest()->get();
+    }
 }

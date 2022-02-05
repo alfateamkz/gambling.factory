@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GFRates;
 use App\Models\Platform;
 use App\Models\Ticket;
 use App\Models\TicketMessage;
@@ -55,6 +56,11 @@ class MainController extends BaseController
 
         return redirect()->intended('/');
     }
+    public function logout(){
+        auth()->logout();
+        return redirect('/');
+    }
+
     public function changePassword(\Illuminate\Http\Request $request){
         $data = $request->all();
         $userinput['login'] = $data['login'];
@@ -91,8 +97,73 @@ class MainController extends BaseController
 
 
    public function exchange(){
-       return view('exchange');
+       return view('exchange')->with([
+           'gfRates'=>GFRates::getRates()
+       ]);
    }
+    public function sellToken(\Illuminate\Http\Request $request){
+
+        $user = auth()->user();
+
+        if($user->Wallet()->gfBalance < $request['sell_gf_count'])
+            return 'Недостаточно токенов';
+
+
+        TradeModel::create([
+            'user_id'=>$user->id,
+            'isActiveTrade'=>true,
+            'unsoldTokensCount' => $request['sell_gf_count']/2,
+            'isBuyOperation'=>false,
+            'amount' => $request['sell_gf_count'],
+            'priceForOne' => $request['sellPriceForOne'],
+            'usdVolumes' => TradeModel::getUSDVolume(),
+        ]);
+
+
+       $wallet= $user->Wallet();
+       $wallet->gfBalance -= $request['sell_gf_count'];
+       $wallet->usdBalance += $request['sell_gf_count'] * $request['sellPriceForOne'];
+       $wallet->save();
+
+        return redirect(route('exchange'));
+    }
+    public function buyToken(\Illuminate\Http\Request $request){
+
+        $user = auth()->user();
+        $rates = GFRates::getRates();
+
+        if($user->Wallet()->usdBalance < $request['buy_gf_count']*$rates->buyUSDPrice)
+            return 'Недостаточно долларов';
+
+
+        TradeModel::create([
+            'user_id'=>$user->id,
+            'isActiveTrade'=>true,
+            'unsoldTokensCount' => $request['buy_gf_count']/2,
+            'isBuyOperation'=>true,
+            'amount' => $request['buy_gf_count'],
+            'priceForOne' => $rates->buyUSDPrice,
+            'usdVolumes' => TradeModel::getUSDVolume(),
+        ]);
+
+
+        $wallet= $user->Wallet();
+        $wallet->gfBalance += $request['buy_gf_count'];
+        $wallet->usdBalance -= $request['buy_gf_count']*$rates->buyUSDPrice;
+        $wallet->save();
+
+        MainController::increaseRates($request['buy_gf_count']*$rates->buyUSDPrice);
+        return redirect(route('exchange'));
+    }
+
+    public function increaseRates($dollars){
+        $rates = GFRates::getRates();
+        $rates->buyUSDPrice += $rates->buyUSDPrice/100000*$dollars;
+        $rates->sellUSDPrice += $rates->sellUSDPrice/100000*$dollars;
+        $rates->save();
+    }
+
+
    public function finance(){
         return view('finance')->with(
             [

@@ -37,7 +37,7 @@
                 <use xlink:href="img/icons/icons.svg#support"></use>
             </svg>
         </a>
-        <a href="#" class="sidebar__controls-link">
+        <a href="{{route('logout')}}" class="sidebar__controls-link">
             <svg class="logout sidebar__controls-icon">
                 <use xlink:href="img/icons/icons.svg#logout"></use>
             </svg>

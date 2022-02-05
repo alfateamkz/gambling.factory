@@ -16,6 +16,7 @@ use App\Http\Controllers;
 Route::get('/','App\Http\Controllers\MainController@index')->name('index');
 
 Route::group(['middleware' => 'App\Http\Middleware\Authenticate'], function () {
+    Route::get('/logout', 'App\Http\Controllers\MainController@logout')->name('logout');
     Route::get('/exchange', 'App\Http\Controllers\MainController@exchange')->name('exchange');
     Route::get('/finance', 'App\Http\Controllers\MainController@finance')->name('finance');
     Route::get('/main', 'App\Http\Controllers\MainController@main')->name('main');
@@ -33,7 +34,6 @@ Route::group(['middleware' => 'App\Http\Middleware\Authenticate'], function () {
 });
 
 
-
 Route::post('/signup','App\Http\Controllers\MainController@signup')->name('signup');
 Route::post('/login','App\Http\Controllers\MainController@login')->name('login');
 Route::post('/changePassword','App\Http\Controllers\MainController@changePassword')->name('changePassword');
@@ -43,3 +43,7 @@ Route::post('/supportCreateTicket','App\Http\Controllers\MainController@supportC
     ->name('supportCreateTicket');
 Route::post('/ticketCreateMessage','App\Http\Controllers\MainController@ticketCreateMessage')
     ->name('ticketCreateMessage');
+
+
+Route::post('/sellToken', 'App\Http\Controllers\MainController@sellToken')->name('sellToken');
+Route::post('/buyToken', 'App\Http\Controllers\MainController@buyToken')->name('buyToken');

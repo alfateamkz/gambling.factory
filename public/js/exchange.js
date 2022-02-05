@@ -118,7 +118,7 @@ options: {
 
               }else{
                 return label;
-              }              
+              }
             }
 			},
 		},
@@ -195,7 +195,7 @@ function mediaQuery(){
 		Chart.defaults.font.size = 10;
 		myChart.update()
 	}
-} 
+}
 /*																	Изменение данных графика																*/
 
 /*																	Создание графика																*/
@@ -230,7 +230,7 @@ function rangeInpFunc() {
 			calcPricePurchase();
 		}
 	})
-	
+
 }
 
 let gfAmountPurchaseValue = gfAmountPurchaseInput.value;
